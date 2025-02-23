@@ -90,10 +90,10 @@ public class userInteraction {
         }
         return new Employee( name, email, dep,job,joiningDate);
     }
-
-
+    @Autowired
+    Scanner scanner;
     public void userInteractionStart(){
-        Scanner scanner = new Scanner(System.in);
+
         while(true) {
             System.out.println("Please select an option from the following:");
             System.out.println("1. Employee");
