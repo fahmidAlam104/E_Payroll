@@ -1,26 +1,38 @@
 package com.epam.Models;
 
+import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Employee {
+@Entity
+public class Employee implements Serializable {
     String name,email;
+    @ManyToOne(targetEntity = Department.class)
+    @JoinColumn(name = "department_id")
     Department department;
+    @ManyToOne(targetEntity = JobTitle.class)
+    @JoinColumn(name = "job_designation_id")
     JobTitle jobTitle;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long employeeId;
     Date joiningDate;
     private static Long employeeIdGenerator=0L;
 
+    public Employee(){
+    }
     public Employee(String name, String email, Department department, JobTitle jobTitle, Date joiningDate) {
         this.name = name;
         this.email = email;
         this.department = department;
         department.setEmployeeCount(department.getEmployeeCount()+1);
         this.jobTitle = jobTitle;
-        this.employeeId = employeeIdGenerator++;
+//         employeeIdGenerator++;
         this.joiningDate = joiningDate;
+        System.err.println(employeeId+" "+name+" "+email+" "+department+" "+jobTitle+" "+joiningDate);
     }
 
     public String getName() {

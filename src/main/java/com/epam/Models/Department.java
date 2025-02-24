@@ -1,19 +1,29 @@
 package com.epam.Models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Department {
-    String departmentName,departmentHead;
+@Entity
+public class Department implements Serializable {
+    @Id
+    String departmentName;
+    String departmentHead;
     Long departmentId;
     Long employeeCount;
 
+    public Department(){
+    }
     public Department(String departmentName, String departmentHead, Long departmentId) {
         setDepartmentName(departmentName);
         setDepartmentHead(departmentHead);
         setDepartmentId(departmentId);
         setEmployeeCount(0L);
+        System.err.println(departmentName+" "+departmentHead+" "+departmentId);
+
     }
 
     public String getDepartmentName() {

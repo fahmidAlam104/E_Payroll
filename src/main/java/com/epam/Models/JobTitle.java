@@ -1,13 +1,20 @@
 package com.epam.Models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class JobTitle {
+@Entity
+public class JobTitle implements Serializable {
+    @Id
     String jobDesignation;
     Long jobId,salaryLowerRange,salaryUpperRange;
 
+    public JobTitle(){
+    }
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -25,6 +32,7 @@ public class JobTitle {
         this.jobId = jobId;
         this.salaryLowerRange = salaryLowerRange;
         this.salaryUpperRange = salaryUpperRange;
+        System.err.println(jobDesignation+" "+jobId+" "+salaryLowerRange+" "+salaryUpperRange);
     }
 
     public String getJobDesignation() {

@@ -11,75 +11,85 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class serviceCrudOperations {
-    @Autowired @Qualifier("EmployeeCrud")
+    @Autowired
     dbEmployeeCrud employeeDbInstance;
-    @Autowired @Qualifier("DepartmentCrud")
+    @Autowired
     dbDepartmentCrud departmentDbInstance;
-    @Autowired @Qualifier("JobTitleCrud")
+    @Autowired
     dbJobTitleCrud jobTitleDbInstance;
       public  void add(Object obj){
           if(obj.getClass().equals(Employee.class)){
               Employee emp=(Employee)obj;
-             employeeDbInstance.add(emp);
+             employeeDbInstance.save(emp);
           } else if (obj.getClass().equals(Department.class)) {
               Department department=(Department) obj;
-              departmentDbInstance.add(department);
+              departmentDbInstance.save(department);
           } else if (obj.getClass().equals(JobTitle.class)) {
               JobTitle jobTitle=(JobTitle) obj;
-              jobTitleDbInstance.add(jobTitle);
+              jobTitleDbInstance.save(jobTitle);
           }
       }
-    public  void remove(Object obj){
-        if(obj.getClass().equals(Employee.class)){
-            Employee emp=(Employee)obj;
-            employeeDbInstance.remove(emp);
-        } else if (obj.getClass().equals(Department.class)) {
-            Department department=(Department) obj;
-            departmentDbInstance.remove(department);
-        } else if (obj.getClass().equals(JobTitle.class)) {
-            JobTitle jobTitle=(JobTitle) obj;
-            jobTitleDbInstance.remove(jobTitle);
+    public <T> void remove(T id,String type){
+        if("Employee".equals(type)){
+            Long empId=(Long)id;
+            employeeDbInstance.deleteById(empId);
+        }else if ("Department".equals(type)){
+            String departmentId=(String) id;
+            departmentDbInstance.deleteById(departmentId);
+        }
+        else if("Job Title".equals(type)){
+            String jobTitle=(String) id;
+            jobTitleDbInstance.deleteById(jobTitle);
         }
     }
+
     public  void edit(Object obj){
         if(obj.getClass().equals(Employee.class)){
             Employee emp=(Employee)obj;
-            employeeDbInstance.edit(emp);
+            employeeDbInstance.save(emp);
         } else if (obj.getClass().equals(Department.class)) {
             Department department=(Department) obj;
-            departmentDbInstance.edit(department);
+            departmentDbInstance.save(department);
         } else if (obj.getClass().equals(JobTitle.class)) {
             JobTitle jobTitle=(JobTitle) obj;
-            jobTitleDbInstance.edit(jobTitle);
+            jobTitleDbInstance.save(jobTitle);
         }
     }
-    public  HashMap<?,?> getAll(String choice){
+    public  <T> List<T> getAll(String choice){
           if("Employee".equals(choice)){
-            return employeeDbInstance.getAll();
+            return (List<T>)employeeDbInstance.findAll();
         }else if ("Department".equals(choice)){
-            return departmentDbInstance.getAll();
+            return (List<T>)departmentDbInstance.findAll();
         }
         else if("Job Title".equals(choice)){
-            return jobTitleDbInstance.getAll();
+            return (List<T>)jobTitleDbInstance.findAll();
         }
         return null;
     }
-    public HashMap<Long,Employee> payRoll(){
-       return employeeDbInstance.getAll();
+    public <T> List<T> payRoll(){
+       return (List<T>) employeeDbInstance.findAll();
     }
     public Object hasKey(String type,Object Key){
           Object ans=null;
         if("Employee".equals(type)){
-            ans=employeeDbInstance.hasKey(Key);
+            if(employeeDbInstance.findById((Long)Key).isPresent()) {
+                ans = employeeDbInstance.findById((Long) Key).get();
+            }
         }else if ("Department".equals(type)){
-            ans=departmentDbInstance.hasKey(Key);
+            if(departmentDbInstance.findById((String)Key).isPresent()){
+            ans=departmentDbInstance.findById((String)Key).get();
+            }
         }
         else if("Job Title".equals(type)){
-            ans=jobTitleDbInstance.hasKey(Key);
+            if(jobTitleDbInstance.findById((String)Key).isPresent()) {
+                ans = jobTitleDbInstance.findById((String) Key).get();
+            }
         }
+        System.out.println(type+" "+ans);
         return ans;
     }
 }

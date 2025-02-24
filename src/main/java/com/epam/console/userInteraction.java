@@ -16,6 +16,9 @@ public class userInteraction {
     @Autowired
     serviceCrudOperations serviceCrudOperations;
 
+    @Autowired
+    Scanner scanner;
+
     public JobTitle createJob(Scanner scanner){
         System.out.print("Enter Job ID : ");
         Long jobId = scanner.nextLong();
@@ -58,6 +61,15 @@ public class userInteraction {
         System.out.print("Enter Email: ");
         String email = scanner.nextLine();
 
+        Department dep = getDepartment(scanner);
+
+        JobTitle job = getJobTitle(scanner);
+
+        Date joiningDate = getJoiningDate(scanner);
+        return new Employee( name, email, dep,job,joiningDate);
+    }
+
+    private Department getDepartment(Scanner scanner) {
         Department dep=null;
         while(dep==null) {
             System.out.print("Enter Department: ");
@@ -66,7 +78,10 @@ public class userInteraction {
             if(dep!=null) break;
             System.err.println("The department does not exist, please re-enter correct department");
         }
+        return dep;
+    }
 
+    private JobTitle getJobTitle(Scanner scanner) {
         JobTitle job=null;
         while(job==null) {
             System.out.print("Enter Job Title: ");
@@ -75,7 +90,10 @@ public class userInteraction {
             if(job!=null) break;
             System.err.println("The Job Title does not exist, please re-enter correct department");
         }
+        return job;
+    }
 
+    private static Date getJoiningDate(Scanner scanner) {
         Date joiningDate = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         while(joiningDate==null) {
@@ -88,10 +106,9 @@ public class userInteraction {
                 e.printStackTrace();
             }
         }
-        return new Employee( name, email, dep,job,joiningDate);
+        return joiningDate;
     }
-    @Autowired
-    Scanner scanner;
+
     public void userInteractionStart(){
 
         while(true) {
@@ -126,48 +143,61 @@ public class userInteraction {
                 System.out.println("Invalid action choice. Please select a valid option.");
                 break;
             }
-          if(firstChoice==1){
-             if(actionChoice==1){
-                 serviceCrudOperations.add(createEmployee(scanner));
-             }
-             else if(actionChoice==2){
-                 serviceCrudOperations.edit(createEmployee(scanner));
-             } else if (actionChoice==3) {
-                 serviceCrudOperations.remove(createEmployee(scanner));
-             } else if (actionChoice==4) {
-                 HashMap<Long,Employee> map= (HashMap<Long, Employee>) serviceCrudOperations.getAll("Employee");
-                 System.out.println(map);
-             }
-             else if(actionChoice==5){
-                 serviceCrudOperations.payRoll();
-             }
-          } else if (firstChoice==2) {
-              if(actionChoice==1){
-                  serviceCrudOperations.add(createDepartment(scanner));
-              }
-              else if(actionChoice==2){
-                  serviceCrudOperations.edit(createDepartment(scanner));
-              } else if (actionChoice==3) {
-                  serviceCrudOperations.remove(createDepartment(scanner));
-              } else if (actionChoice==4) {
-                  HashMap<String,Department> dep=(HashMap<String, Department>) serviceCrudOperations.getAll("Department");
-                  System.out.println(dep);
-              }
-          }
-          else if(firstChoice==3){
-              if(actionChoice==1){
-                  serviceCrudOperations.add(createJob(scanner));
-              }
-              else if(actionChoice==2){
-                  serviceCrudOperations.edit(createJob(scanner));
-              } else if (actionChoice==3) {
-                  serviceCrudOperations.remove(createJob(scanner));
-              } else if (actionChoice==4) {
-                 HashMap<String,JobTitle> job=(HashMap<String, JobTitle>) serviceCrudOperations.getAll("Job Title");
-                  System.out.println(job);
-              }
-          }
+            methodCallHandler(firstChoice, actionChoice);
         }
         scanner.close();
+    }
+
+    private void methodCallHandler(int firstChoice, int actionChoice) {
+        if(firstChoice ==1){
+           if(actionChoice ==1){
+               serviceCrudOperations.add(createEmployee(scanner));
+           }
+           else if(actionChoice ==2){
+               serviceCrudOperations.edit(createEmployee(scanner));
+           } else if (actionChoice ==3) {
+               Long empId;
+               System.out.println("Enter Employees Id to be deleted");
+               empId= scanner.nextLong();
+               serviceCrudOperations.remove(empId,"Employee");
+           } else if (actionChoice ==4) {
+               List<Employee> map=  serviceCrudOperations.getAll("Employee");
+               map.forEach(System.out::println);
+           }
+           else if(actionChoice ==5){
+               serviceCrudOperations.payRoll();
+           }
+        } else if (firstChoice ==2) {
+            if(actionChoice ==1){
+                serviceCrudOperations.add(createDepartment(scanner));
+            }
+            else if(actionChoice ==2){
+                serviceCrudOperations.edit(createDepartment(scanner));
+            } else if (actionChoice ==3) {
+                String departmentId;
+                System.out.println("Enter Department Name to be deleted");
+                departmentId= scanner.nextLine();
+                serviceCrudOperations.remove(departmentId,"Department");
+            } else if (actionChoice ==4) {
+                List<Department> dep= serviceCrudOperations.getAll("Department");
+                dep.forEach(System.out::println);
+            }
+        }
+        else if(firstChoice ==3){
+            if(actionChoice ==1){
+                serviceCrudOperations.add(createJob(scanner));
+            }
+            else if(actionChoice ==2){
+                serviceCrudOperations.edit(createJob(scanner));
+            } else if (actionChoice ==3) {
+                String jobTitleId;
+                System.out.println("Enter Job title to be deleted");
+                jobTitleId= scanner.nextLine();
+                serviceCrudOperations.remove(jobTitleId,"Job Title");
+            } else if (actionChoice ==4) {
+               List<JobTitle> job=serviceCrudOperations.getAll("Job Title");
+               job.forEach(System.out::println);
+            }
+        }
     }
 }
