@@ -1,32 +1,32 @@
 package com.epam.Controller;
 import com.epam.DTO.EmployeeDTO;
-import com.epam.Models.Employee;
-import com.epam.service.serviceCrudOperations;
+import com.epam.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/Employee")
+@RequestMapping("api/employees")
 public class EmployeeController {
     @Autowired
-    serviceCrudOperations serviceCrudOperations;
-    @GetMapping
-    public List<EmployeeDTO> get(){
-        return serviceCrudOperations.getAll("Employee");
+    EmployeeService serviceCrudOperations;
+    @GetMapping("/{id}")
+    public EmployeeDTO getById(@PathVariable Long id){
+       return serviceCrudOperations.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody EmployeeDTO employee){
+    public void add(@Valid @RequestBody EmployeeDTO employee){
         serviceCrudOperations.add(employee);
     }
-    @DeleteMapping("/{empId}")
-    public void delete(@PathVariable int empId){
-        serviceCrudOperations.remove((long) empId,"Employee");
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        serviceCrudOperations.removeById(id);
     }
-    @PutMapping
-    public void update(@RequestBody EmployeeDTO employee){
-        serviceCrudOperations.add(employee);
+    @PutMapping("/{id}")
+    public void updateById(@Valid @RequestBody EmployeeDTO employee,@PathVariable Long id){
+        serviceCrudOperations.editById(employee,id);
     }
 
 }

@@ -1,14 +1,14 @@
 //package com.epam.Controller;
 //
-//import com.epam.service.serviceCrudOperations;
+//import com.epam.service.ServiceCrudOperations;
 //import org.springframework.beans.factory.annotation.Autowired;
 //
 //import java.util.List;
 //
 //public abstract class AbstractController<T,Id> {
 //    @Autowired
-//    serviceCrudOperations serviceCrudOperations;
+//    ServiceCrudOperations ServiceCrudOperations;
 //    public List<T> get(){
-//        return serviceCrudOperations.getAll(T);
+//        return ServiceCrudOperations.getAll(T);
 //    }
 //}

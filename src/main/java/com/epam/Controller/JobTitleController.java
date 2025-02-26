@@ -1,34 +1,32 @@
 package com.epam.Controller;
 
 import com.epam.DTO.JobTitleDTO;
-import com.epam.Models.Department;
-import com.epam.Models.Employee;
-import com.epam.Models.JobTitle;
-import com.epam.service.serviceCrudOperations;
+import com.epam.service.JobTitleService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/JobTitle")
 public class JobTitleController {
     @Autowired
-    serviceCrudOperations serviceCrudOperations;
-    @GetMapping
-    public List<JobTitleDTO> getJobTitle(){
-        return serviceCrudOperations.getAll("Job Title");
+    JobTitleService serviceCrudOperations;
+    @GetMapping("/{id}")
+    public JobTitleDTO getJobTitle(@PathVariable String id){
+        return serviceCrudOperations.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody JobTitleDTO jobTitle){
+    public void add(@Valid @RequestBody JobTitleDTO jobTitle){
         serviceCrudOperations.add(jobTitle);
     }
     @DeleteMapping("/{jobId}")
-    public void delete(@PathVariable String jobId){
-        serviceCrudOperations.remove(jobId,"Job Title");
+    public void delete(@NotBlank(message = "Job Id to be deleted is Blank")@PathVariable String jobId){
+        serviceCrudOperations.removeById(jobId);
     }
-    @PutMapping
-    public void update(@RequestBody JobTitleDTO jobTitle){
-        serviceCrudOperations.add(jobTitle);
+    @PutMapping("/{id}")
+    public void update(@Valid @RequestBody JobTitleDTO jobTitle,String id){
+        serviceCrudOperations.editById(jobTitle,id);
     }
 }

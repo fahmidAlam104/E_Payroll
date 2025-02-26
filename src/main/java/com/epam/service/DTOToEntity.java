@@ -6,8 +6,8 @@ import com.epam.DTO.JobTitleDTO;
 import com.epam.Models.Department;
 import com.epam.Models.Employee;
 import com.epam.Models.JobTitle;
-import com.epam.dbLayer.dbDepartmentCrud;
-import com.epam.dbLayer.dbJobTitleCrud;
+import com.epam.RepositoryLayer.DepartmentRepository;
+import com.epam.RepositoryLayer.JobTitleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,9 @@ public class DTOToEntity {
     @Autowired
     ObjectMapper objectMapper;
     @Autowired
-    dbDepartmentCrud departmentDbInstance;
+    DepartmentRepository departmentDbInstance;
     @Autowired
-    dbJobTitleCrud jobTitleDbInstance;
+    JobTitleRepository jobTitleDbInstance;
 
     public Employee toEmployee(EmployeeDTO emp){
        Employee employee=objectMapper.convertValue(emp, Employee.class);

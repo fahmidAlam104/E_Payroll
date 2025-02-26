@@ -3,7 +3,7 @@
 //import com.epam.Models.Department;
 //import com.epam.Models.Employee;
 //import com.epam.Models.JobTitle;
-//import com.epam.service.serviceCrudOperations;
+//import com.epam.service.ServiceCrudOperations;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
 //
@@ -14,7 +14,7 @@
 //@Component
 //public class userInteraction {
 //    @Autowired
-//    serviceCrudOperations serviceCrudOperations;
+//    ServiceCrudOperations ServiceCrudOperations;
 //
 //    @Autowired
 //    Scanner scanner;
@@ -74,7 +74,7 @@
 //        while(dep==null) {
 //            System.out.print("Enter Department: ");
 //            String department = scanner.nextLine();
-//            dep = (Department) serviceCrudOperations.hasKey("Department", department);
+//            dep = (Department) ServiceCrudOperations.hasKey("Department", department);
 //            if(dep!=null) break;
 //            System.err.println("The department does not exist, please re-enter correct department");
 //        }
@@ -86,7 +86,7 @@
 //        while(job==null) {
 //            System.out.print("Enter Job Title: ");
 //            String jobTitle = scanner.nextLine();
-//            job = (JobTitle) serviceCrudOperations.hasKey("Job Title",jobTitle);
+//            job = (JobTitle) ServiceCrudOperations.hasKey("Job Title",jobTitle);
 //            if(job!=null) break;
 //            System.err.println("The Job Title does not exist, please re-enter correct department");
 //        }
@@ -151,51 +151,51 @@
 //    private void methodCallHandler(int firstChoice, int actionChoice) {
 //        if(firstChoice ==1){
 //           if(actionChoice ==1){
-//               serviceCrudOperations.add(createEmployee(scanner));
+//               ServiceCrudOperations.add(createEmployee(scanner));
 //           }
 //           else if(actionChoice ==2){
-//               serviceCrudOperations.edit(createEmployee(scanner));
+//               ServiceCrudOperations.edit(createEmployee(scanner));
 //           } else if (actionChoice ==3) {
 //               Long empId;
 //               System.out.println("Enter Employees Id to be deleted");
 //               empId= scanner.nextLong();
-//               serviceCrudOperations.remove(empId,"Employee");
+//               ServiceCrudOperations.remove(empId,"Employee");
 //           } else if (actionChoice ==4) {
-//               List<Employee> map=  serviceCrudOperations.getAll("Employee");
+//               List<Employee> map=  ServiceCrudOperations.getAll("Employee");
 //               map.forEach(System.out::println);
 //           }
 //           else if(actionChoice ==5){
-//               serviceCrudOperations.payRoll();
+//               ServiceCrudOperations.payRoll();
 //           }
 //        } else if (firstChoice ==2) {
 //            if(actionChoice ==1){
-//                serviceCrudOperations.add(createDepartment(scanner));
+//                ServiceCrudOperations.add(createDepartment(scanner));
 //            }
 //            else if(actionChoice ==2){
-//                serviceCrudOperations.edit(createDepartment(scanner));
+//                ServiceCrudOperations.edit(createDepartment(scanner));
 //            } else if (actionChoice ==3) {
 //                String departmentId;
 //                System.out.println("Enter Department Name to be deleted");
 //                departmentId= scanner.nextLine();
-//                serviceCrudOperations.remove(departmentId,"Department");
+//                ServiceCrudOperations.remove(departmentId,"Department");
 //            } else if (actionChoice ==4) {
-//                List<Department> dep= serviceCrudOperations.getAll("Department");
+//                List<Department> dep= ServiceCrudOperations.getAll("Department");
 //                dep.forEach(System.out::println);
 //            }
 //        }
 //        else if(firstChoice ==3){
 //            if(actionChoice ==1){
-//                serviceCrudOperations.add(createJob(scanner));
+//                ServiceCrudOperations.add(createJob(scanner));
 //            }
 //            else if(actionChoice ==2){
-//                serviceCrudOperations.edit(createJob(scanner));
+//                ServiceCrudOperations.edit(createJob(scanner));
 //            } else if (actionChoice ==3) {
 //                String jobTitleId;
 //                System.out.println("Enter Job title to be deleted");
 //                jobTitleId= scanner.nextLine();
-//                serviceCrudOperations.remove(jobTitleId,"Job Title");
+//                ServiceCrudOperations.remove(jobTitleId,"Job Title");
 //            } else if (actionChoice ==4) {
-//               List<JobTitle> job=serviceCrudOperations.getAll("Job Title");
+//               List<JobTitle> job=ServiceCrudOperations.getAll("Job Title");
 //               job.forEach(System.out::println);
 //            }
 //        }
