@@ -1,5 +1,6 @@
 package com.epam.Controller;
 
+import com.epam.DTO.DepartmentDTO;
 import com.epam.Models.Department;
 import com.epam.Models.Employee;
 import com.epam.service.serviceCrudOperations;
@@ -14,19 +15,19 @@ public class DepartmentController {
     @Autowired
     serviceCrudOperations serviceCrudOperations;
     @GetMapping
-    public List<Department> get(){
+    public List<DepartmentDTO> get(){
         return serviceCrudOperations.getAll("Department");
     }
     @PostMapping
-    public void add(@RequestBody Department department){
+    public void add(@RequestBody DepartmentDTO department){
         serviceCrudOperations.add(department);
     }
     @DeleteMapping("/{departmentId}")
-    public void delete(@PathVariable int departmentId){
+    public void delete(@PathVariable String departmentId){
         serviceCrudOperations.remove(departmentId,"Department");
     }
     @PutMapping
-    public void update(@RequestBody Department department){
+    public void update(@RequestBody DepartmentDTO department){
         serviceCrudOperations.add(department);
     }
 }

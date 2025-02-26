@@ -1,5 +1,6 @@
 package com.epam.Controller;
 
+import com.epam.DTO.JobTitleDTO;
 import com.epam.Models.Department;
 import com.epam.Models.Employee;
 import com.epam.Models.JobTitle;
@@ -15,19 +16,19 @@ public class JobTitleController {
     @Autowired
     serviceCrudOperations serviceCrudOperations;
     @GetMapping
-    public List<JobTitle> getJobTitle(){
+    public List<JobTitleDTO> getJobTitle(){
         return serviceCrudOperations.getAll("Job Title");
     }
     @PostMapping
-    public void add(@RequestBody JobTitle jobTitle){
+    public void add(@RequestBody JobTitleDTO jobTitle){
         serviceCrudOperations.add(jobTitle);
     }
     @DeleteMapping("/{jobId}")
-    public void delete(@PathVariable int jobId){
+    public void delete(@PathVariable String jobId){
         serviceCrudOperations.remove(jobId,"Job Title");
     }
     @PutMapping
-    public void update(@RequestBody JobTitle jobTitle){
+    public void update(@RequestBody JobTitleDTO jobTitle){
         serviceCrudOperations.add(jobTitle);
     }
 }

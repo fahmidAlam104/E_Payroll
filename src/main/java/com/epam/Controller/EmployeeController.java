@@ -1,4 +1,5 @@
 package com.epam.Controller;
+import com.epam.DTO.EmployeeDTO;
 import com.epam.Models.Employee;
 import com.epam.service.serviceCrudOperations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,11 @@ public class EmployeeController {
     @Autowired
     serviceCrudOperations serviceCrudOperations;
     @GetMapping
-    public List<Employee> get(){
+    public List<EmployeeDTO> get(){
         return serviceCrudOperations.getAll("Employee");
     }
     @PostMapping
-    public void add(@RequestBody Employee employee){
+    public void add(@RequestBody EmployeeDTO employee){
         serviceCrudOperations.add(employee);
     }
     @DeleteMapping("/{empId}")
@@ -24,7 +25,7 @@ public class EmployeeController {
         serviceCrudOperations.remove((long) empId,"Employee");
     }
     @PutMapping
-    public void update(@RequestBody Employee employee){
+    public void update(@RequestBody EmployeeDTO employee){
         serviceCrudOperations.add(employee);
     }
 

@@ -1,79 +1,89 @@
 package com.epam.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class JobTitle implements Serializable {
     @Id
     String jobDesignation;
-    Long jobId,salaryLowerRange,salaryUpperRange;
+    Long jobId;
+    Long salaryLowerRange,salaryUpperRange;
 
-    public JobTitle(){
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        JobTitle jobTitle = (JobTitle) o;
-        return Objects.equals(getJobDesignation(), jobTitle.getJobDesignation()) && Objects.equals(getJobId(), jobTitle.getJobId()) && Objects.equals(getSalaryLowerRange(), jobTitle.getSalaryLowerRange()) && Objects.equals(getSalaryUpperRange(), jobTitle.getSalaryUpperRange());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getJobDesignation(), getJobId(), getSalaryLowerRange(), getSalaryUpperRange());
-    }
-
-    public JobTitle(String jobDesignation, Long jobId, Long salaryLowerRange, Long salaryUpperRange) {
-        this.jobDesignation = jobDesignation;
-        this.jobId = jobId;
-        this.salaryLowerRange = salaryLowerRange;
-        this.salaryUpperRange = salaryUpperRange;
-        System.err.println(jobDesignation+" "+jobId+" "+salaryLowerRange+" "+salaryUpperRange);
-    }
-
-    public String getJobDesignation() {
-        return jobDesignation;
-    }
-
-    public void setJobDesignation(String jobDesignation) {
-        this.jobDesignation = jobDesignation;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
-    public Long getSalaryLowerRange() {
-        return salaryLowerRange;
-    }
-
-    public void setSalaryLowerRange(Long salaryLowerRange) {
-        this.salaryLowerRange = salaryLowerRange;
-    }
-
-    public Long getSalaryUpperRange() {
-        return salaryUpperRange;
-    }
-
-    public void setSalaryUpperRange(Long salaryUpperRange) {
-        this.salaryUpperRange = salaryUpperRange;
-    }
-
-    @Override
-    public String toString() {
-        return "JobTitle{" +
-                "jobDesignation='" + jobDesignation + '\'' +
-                ", jobId=" + jobId +
-                ", salaryLowerRange=" + salaryLowerRange +
-                ", salaryUpperRange=" + salaryUpperRange +
-                '}';
-    }
+//    public JobTitle(){
+//    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == null || getClass() != o.getClass()) return false;
+//        JobTitle jobTitle = (JobTitle) o;
+//        return Objects.equals(getJobDesignation(), jobTitle.getJobDesignation()) && Objects.equals(getJobId(), jobTitle.getJobId()) && Objects.equals(getSalaryLowerRange(), jobTitle.getSalaryLowerRange()) && Objects.equals(getSalaryUpperRange(), jobTitle.getSalaryUpperRange());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getJobDesignation(), getJobId(), getSalaryLowerRange(), getSalaryUpperRange());
+//    }
+//
+//    public JobTitle(String jobDesignation, Long jobId, Long salaryLowerRange, Long salaryUpperRange) {
+//        this.jobDesignation = jobDesignation;
+//        this.jobId = jobId;
+//        this.salaryLowerRange = salaryLowerRange;
+//        this.salaryUpperRange = salaryUpperRange;
+//        System.err.println(jobDesignation+" "+jobId+" "+salaryLowerRange+" "+salaryUpperRange);
+//    }
+//
+//    public String getJobDesignation() {
+//        return jobDesignation;
+//    }
+//
+//    public void setJobDesignation(String jobDesignation) {
+//        this.jobDesignation = jobDesignation;
+//    }
+//
+//    public Long getJobId() {
+//        return jobId;
+//    }
+//
+//    public void setJobId(Long jobId) {
+//        this.jobId = jobId;
+//    }
+//
+//    public Long getSalaryLowerRange() {
+//        return salaryLowerRange;
+//    }
+//
+//    public void setSalaryLowerRange(Long salaryLowerRange) {
+//        this.salaryLowerRange = salaryLowerRange;
+//    }
+//
+//    public Long getSalaryUpperRange() {
+//        return salaryUpperRange;
+//    }
+//
+//    public void setSalaryUpperRange(Long salaryUpperRange) {
+//        this.salaryUpperRange = salaryUpperRange;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "JobTitle{" +
+//                "jobDesignation='" + jobDesignation + '\'' +
+//                ", jobId=" + jobId +
+//                ", salaryLowerRange=" + salaryLowerRange +
+//                ", salaryUpperRange=" + salaryUpperRange +
+//                '}';
+//    }
 }

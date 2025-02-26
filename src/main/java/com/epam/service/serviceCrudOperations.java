@@ -1,5 +1,8 @@
 package com.epam.service;
 
+import com.epam.DTO.DepartmentDTO;
+import com.epam.DTO.EmployeeDTO;
+import com.epam.DTO.JobTitleDTO;
 import com.epam.Models.Department;
 import com.epam.Models.Employee;
 import com.epam.Models.JobTitle;
@@ -7,13 +10,12 @@ import com.epam.dbLayer.dbDepartmentCrud;
 import com.epam.dbLayer.dbEmployeeCrud;
 import com.epam.dbLayer.dbJobTitleCrud;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class serviceCrudOperations {
     @Autowired
     dbEmployeeCrud employeeDbInstance;
@@ -21,15 +23,19 @@ public class serviceCrudOperations {
     dbDepartmentCrud departmentDbInstance;
     @Autowired
     dbJobTitleCrud jobTitleDbInstance;
+    @Autowired
+    EntityToDTO entityToDTO;
+    @Autowired
+    DTOToEntity dtoToEntity;
       public  void add(Object obj){
-          if(obj.getClass().equals(Employee.class)){
-              Employee emp=(Employee)obj;
+          if(obj.getClass().equals(EmployeeDTO.class)){
+              Employee emp=dtoToEntity.toEmployee((EmployeeDTO)obj);
              employeeDbInstance.save(emp);
-          } else if (obj.getClass().equals(Department.class)) {
-              Department department=(Department) obj;
+          } else if (obj.getClass().equals(DepartmentDTO.class)) {
+              Department department=dtoToEntity.toDepartment((DepartmentDTO) obj);
               departmentDbInstance.save(department);
-          } else if (obj.getClass().equals(JobTitle.class)) {
-              JobTitle jobTitle=(JobTitle) obj;
+          } else if (obj.getClass().equals(JobTitleDTO.class)) {
+              JobTitle jobTitle=dtoToEntity.toJobTitle((JobTitleDTO) obj);
               jobTitleDbInstance.save(jobTitle);
           }
       }
@@ -48,25 +54,41 @@ public class serviceCrudOperations {
     }
 
     public  void edit(Object obj){
-        if(obj.getClass().equals(Employee.class)){
-            Employee emp=(Employee)obj;
+        if(obj.getClass().equals(EmployeeDTO.class)){
+            Employee emp=dtoToEntity.toEmployee((EmployeeDTO)obj);
             employeeDbInstance.save(emp);
-        } else if (obj.getClass().equals(Department.class)) {
-            Department department=(Department) obj;
+        } else if (obj.getClass().equals(DepartmentDTO.class)) {
+            Department department=dtoToEntity.toDepartment((DepartmentDTO) obj);
             departmentDbInstance.save(department);
-        } else if (obj.getClass().equals(JobTitle.class)) {
-            JobTitle jobTitle=(JobTitle) obj;
+        } else if (obj.getClass().equals(JobTitleDTO.class)) {
+            JobTitle jobTitle=dtoToEntity.toJobTitle((JobTitleDTO) obj);
             jobTitleDbInstance.save(jobTitle);
         }
     }
     public  <T> List<T> getAll(String choice){
           if("Employee".equals(choice)){
-            return (List<T>)employeeDbInstance.findAll();
+            List<Employee> tmp=(List<Employee>) employeeDbInstance.findAll();
+            List<T> fans = new ArrayList<>();
+            tmp.forEach((o1)->{
+
+                fans.add((T)entityToDTO.toEmployeeDTO(o1));
+            });
+            return fans;
         }else if ("Department".equals(choice)){
-            return (List<T>)departmentDbInstance.findAll();
+              List<Department> tmp=(List<Department>) departmentDbInstance.findAll();
+              List<T> fans = new ArrayList<>();
+              tmp.forEach((o1)->{
+                  fans.add((T)entityToDTO.toDepartmentDTO(o1));
+              });
+              return fans;
         }
         else if("Job Title".equals(choice)){
-            return (List<T>)jobTitleDbInstance.findAll();
+              List<JobTitle> tmp=(List<JobTitle>) jobTitleDbInstance.findAll();
+              List<T> fans = new ArrayList<>();
+              tmp.forEach((o1)->{
+                  fans.add((T)entityToDTO.toJobTitleDTO(o1));
+              });
+            return fans;
         }
         return null;
     }
