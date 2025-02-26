@@ -40,6 +40,9 @@ public class DTOToEntity {
        else{
            throw new IllegalArgumentException("No such job Title");
        }
+       if(job.get().getSalaryLowerRange()> employee.getSalary() || job.get().getSalaryUpperRange()<employee.getSalary()){
+           throw new IllegalArgumentException("Employees Salary is not in his departments salary range -["+job.get().getSalaryLowerRange()+" , "+job.get().getSalaryUpperRange()+"]");
+       }
        employee.setJoiningDate(new Date());
        /// ////////////////////////////////   how to fix this?? (crud<dep,str> injection)
         departmentDbInstance.incrementEmployeeCount(emp.getDepartmentName());
@@ -47,9 +50,14 @@ public class DTOToEntity {
        return employee;
     }
     public Department toDepartment(DepartmentDTO dep){
-        return objectMapper.convertValue(dep, Department.class);
+        Department depp =objectMapper.convertValue(dep, Department.class);
+        depp.setDepartmentId(0L);
+        depp.setEmployeeCount(0l);
+        return depp;
     }
     public JobTitle toJobTitle(JobTitleDTO job){
-        return objectMapper.convertValue(job, JobTitle.class);
+        JobTitle jb = objectMapper.convertValue(job, JobTitle.class);
+        jb.setJobId(0L);
+        return jb;
     }
 }

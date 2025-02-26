@@ -16,12 +16,6 @@ public class Department implements Serializable {
     String departmentName;
     String departmentHead;
     Long departmentId;
-    Long employeeCount=0L;
-
-    public Department(String departmentName, String departmentHead, Long departmentId) {
-        setDepartmentName(departmentName);
-        setDepartmentHead(departmentHead);
-        setDepartmentId(employeeCount++);
-        setEmployeeCount(0L);
-    }
+    Long employeeCount;
+    Double bonus;
 }

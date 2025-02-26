@@ -25,14 +25,6 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long employeeId;
     Date joiningDate;
+    Long salary;
     private static Long employeeIdGenerator=0L;
-
-    public Employee(String name, String email, Department department, JobTitle jobTitle, Date joiningDate) {
-        this.name = name;
-        this.email = email;
-        this.department = department;
-        department.setEmployeeCount(department.getEmployeeCount()+1);
-        this.jobTitle = jobTitle;
-        this.joiningDate = joiningDate;
-    }
 }
