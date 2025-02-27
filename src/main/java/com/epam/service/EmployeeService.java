@@ -4,10 +4,16 @@ import com.epam.DTO.EmployeeDTO;
 import com.epam.Models.Employee;
 import com.epam.RepositoryLayer.EmployeeRepository;
 import com.epam.Utility.EmployeeNotFoundException;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -38,5 +44,44 @@ public class EmployeeService {
             else{
                 throw new EmployeeNotFoundException("No such employee with the given id:-"+id);
             }
+    }
+
+    public Double calculateAverageSalaryByDepartment(String departmentName){
+        List<Employee> emp=(List<Employee>) employeeDbInstance.findAll();
+        return emp.stream()
+                .filter(employee -> employee.getDepartment().getDepartmentName().equals(departmentName))
+                .mapToDouble(Employee::getSalary).average().orElseGet(()->0.0);
+    }
+    public Map<String,List<EmployeeDTO>> getEmployeesGroupedByDepartment(){
+        List<Employee> emp=(List<Employee>) employeeDbInstance.findAll();
+       return emp.stream().collect(Collectors.groupingBy(e->e.getDepartment().getDepartmentName(),Collectors.mapping(x->entityToDTO.toEmployeeDTO(x),Collectors.toList())));
+    }
+    public List<EmployeeDTO> getTopNHighestPaidEmployees(Integer n){
+        @NotNull
+        List<Employee> emp=(List<Employee>) employeeDbInstance.findAll();
+        if(n> emp.size()){
+            throw new IllegalArgumentException(" N is greater than List size");
+        }
+        return emp.stream().sorted(((o1, o2) -> Long.compare(o1.getSalary(),o2.getSalary()))).limit(n).map(x->entityToDTO.toEmployeeDTO(x)).toList();
+    }
+
+    public Integer calculatePayrollByJobTitle(String jobTitle){
+        @NotNull
+        List<Employee> emp=(List<Employee>) employeeDbInstance.findAll();
+        return emp.stream().filter(employee -> employee.getJobTitle().getJobDesignation().equals(jobTitle)).mapToInt(o1-> Math.toIntExact(o1.getSalary())).sum();
+    }
+
+    public List<EmployeeDTO> findEmployeesHiredInLastNMonths(Integer months){
+        List<Employee> emp=(List<Employee>) employeeDbInstance.findAll();
+        Date startDate= new Date();
+        Predicate<Employee> check=(employee)->{
+
+            LocalDate startLocalDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate endLocalDate = employee.getJoiningDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            return ChronoUnit.MONTHS.between(startLocalDate, endLocalDate)<=months;
+        };
+
+        return emp.stream().filter(employee -> check.test(employee)).map(x->entityToDTO.toEmployeeDTO(x)).toList();
     }
 }
