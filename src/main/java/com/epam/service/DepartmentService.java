@@ -4,11 +4,14 @@ import com.epam.DTO.DepartmentDTO;
 import com.epam.Models.Department;
 import com.epam.RepositoryLayer.DepartmentRepository;
 import com.epam.Utility.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentService {
+    private static final Logger logger= LoggerFactory.getLogger(DepartmentService.class);
     @Autowired
     DepartmentRepository departmentDbInstance;
     @Autowired
