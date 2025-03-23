@@ -1,7 +1,6 @@
 package com.epam.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +11,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 public class JobTitle implements Serializable {
-    @Id
-    String jobDesignation;
-    Long jobId;
+    @Column(unique = true)
+    String designation;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "job_id")
+    Long id;
     Long salaryLowerRange,salaryUpperRange;
 }

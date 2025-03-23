@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErrorResponse {
     String errorMessage;
-    int errorCode;
-    public ErrorResponse(String errorMessage){
-        this.errorMessage=errorMessage;
-    }
+    String path;
+    String date;
+    String errorStatus;
 }

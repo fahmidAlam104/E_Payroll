@@ -23,7 +23,7 @@ public class PayrollService {
         List<EmployeeDTO> payroll=new ArrayList<>();
         Iterable<Employee> employeeList=employeeDbInstance.findAll();
         employeeList.forEach((emp)->{
-            Double bonus=departmentDbInstance.findById(emp.getDepartment().getDepartmentName()).get().getBonus();
+            Double bonus=departmentDbInstance.findById(emp.getDepartment().getId()).get().getBonus();
             Long finalSalary = (long) ((emp.getSalary()*(100.0+bonus))/100);
             emp.setSalary(finalSalary);
             payroll.add(entityToDTO.toEmployeeDTO(emp));

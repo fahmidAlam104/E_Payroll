@@ -12,10 +12,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 public class Department implements Serializable {
-    @Id
-    String departmentName;
-    String departmentHead;
-    Long departmentId;
+
+    @Column(unique = true)
+    String name;
+    String head;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "dep_id")
+    Long id;
     Long employeeCount;
     Double bonus;
 }

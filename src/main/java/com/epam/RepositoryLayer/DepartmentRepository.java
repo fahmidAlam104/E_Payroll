@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DepartmentRepository extends CrudRepository<Department,String> {
+public interface DepartmentRepository extends CrudRepository<Department,Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Department d SET d.employeeCount = d.employeeCount + 1 WHERE d.departmentName = :key")
-    public void incrementEmployeeCount(@Param("key") String key);
+    @Query("UPDATE Department d SET d.employeeCount = d.employeeCount + 1 WHERE d.id = :key")
+    public void incrementEmployeeCount(@Param("key") Long key);
 }

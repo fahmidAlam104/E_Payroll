@@ -8,6 +8,7 @@ import com.epam.Models.Employee;
 import com.epam.Models.JobTitle;
 import com.epam.RepositoryLayer.DepartmentRepository;
 import com.epam.RepositoryLayer.JobTitleRepository;
+import com.epam.Utility.InvalidDataException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,38 +27,31 @@ public class DTOToEntity {
 
     public Employee toEmployee(EmployeeDTO emp){
        Employee employee=objectMapper.convertValue(emp, Employee.class);
-       Optional<Department> dep = departmentDbInstance.findById(emp.getDepartmentName());
-       if(dep.isPresent()){
-           employee.setDepartment(dep.get());
-       }
-       else{
-           throw new IllegalArgumentException("No such department");
-       }
-       Optional<JobTitle> job=jobTitleDbInstance.findById(emp.getJobName());
-       if(job.isPresent()){
-           employee.setJobTitle(job.get());
-       }
-       else{
-           throw new IllegalArgumentException("No such job Title");
-       }
-       if(job.get().getSalaryLowerRange()> employee.getSalary() || job.get().getSalaryUpperRange()<employee.getSalary()){
-           throw new IllegalArgumentException("Employees Salary is not in his departments salary range -["+job.get().getSalaryLowerRange()+" , "+job.get().getSalaryUpperRange()+"]");
+       employee.setDepartment(departmentDbInstance.findById(emp.getDepId()).
+                      orElseThrow(()-> new IllegalArgumentException("No such department")));
+
+       employee.setJobTitle(jobTitleDbInstance.findById(emp.getJobId()).
+                     orElseThrow(()->new IllegalArgumentException("No such job Title")));
+
+       if(employee.getJobTitle().getSalaryLowerRange()> employee.getSalary()
+                     || employee.getJobTitle().getSalaryUpperRange()<employee.getSalary()){
+           throw new InvalidDataException("Employees Salary is not in his departments " +
+                   "salary range -[" +employee.getJobTitle().getSalaryLowerRange()+" , "
+                   +employee.getJobTitle().getSalaryUpperRange()+"]");
        }
        employee.setJoiningDate(new Date());
-       /// ////////////////////////////////   how to fix this?? (crud<dep,str> injection)
-        departmentDbInstance.incrementEmployeeCount(emp.getDepartmentName());
-        /// ///////////////
+       departmentDbInstance.incrementEmployeeCount(emp.getDepId());
        return employee;
     }
     public Department toDepartment(DepartmentDTO dep){
         Department depp =objectMapper.convertValue(dep, Department.class);
-        depp.setDepartmentId(0L);
-        depp.setEmployeeCount(0l);
+        depp.setEmployeeCount(0L);
         return depp;
     }
     public JobTitle toJobTitle(JobTitleDTO job){
+        System.out.println(job);
         JobTitle jb = objectMapper.convertValue(job, JobTitle.class);
-        jb.setJobId(0L);
+        System.out.println(jb);
         return jb;
     }
 }

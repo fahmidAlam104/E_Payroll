@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeNotFoundException extends RuntimeException{
+public class EntityNotFoundException extends RuntimeException{
     String message;
 }

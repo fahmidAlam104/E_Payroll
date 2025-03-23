@@ -14,17 +14,18 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 public class Employee implements Serializable {
-    String name,email;
+    String name;
+    @Column(unique = true)
+    String email;
     @ManyToOne(targetEntity = Department.class)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "dep_id",referencedColumnName = "dep_id")
     Department department;
     @ManyToOne(targetEntity = JobTitle.class)
-    @JoinColumn(name = "job_designation_id")
+    @JoinColumn(name = "job_id",referencedColumnName = "job_id")
     JobTitle jobTitle;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long employeeId;
+    Long id;
     Date joiningDate;
     Long salary;
-    private static Long employeeIdGenerator=0L;
 }

@@ -18,7 +18,7 @@ public class EmployeeController {
     @Autowired
     PayrollService payrollService;
     @GetMapping("/{id}")
-    public EmployeeDTO getById(@PathVariable Long id){
+    public EmployeeDTO getById(@PathVariable @NotNull Long id){
        return serviceCrudOperations.getById(id);
     }
     @PostMapping

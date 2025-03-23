@@ -16,8 +16,8 @@ public class EntityToDTO {
     ObjectMapper objectMapper;
     public EmployeeDTO toEmployeeDTO(Employee emp){
         EmployeeDTO employeeDTO=objectMapper.convertValue(emp, EmployeeDTO.class);
-        employeeDTO.setDepartmentName(emp.getDepartment().getDepartmentName());
-        employeeDTO.setJobName(emp.getJobTitle().getJobDesignation());
+        employeeDTO.setDepId(emp.getDepartment().getId());
+        employeeDTO.setJobId(emp.getJobTitle().getId());
         return employeeDTO;
     }
     public DepartmentDTO toDepartmentDTO(Department dep){

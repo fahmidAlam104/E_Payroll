@@ -5,16 +5,15 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepartmentDTO {
     @NotBlank(message = "Department Name cannot be Blank")
-    String departmentName;
+    String name;
     @NotBlank(message = "Department Head Name cannot be Blank")
-    String departmentHead;
+    String head;
     @NotNull(message = "bonus cannot be NULL")
     Double bonus;
 }

@@ -16,10 +16,10 @@ public class EmployeeDTO {
     @Email(message = "Email does not match the standard email pattern")
     @NotBlank(message = "Email cannot be Blank")
     String email;
-    @NotBlank(message = "Department Name cannot be Blank")
-    String departmentName;
-    @NotBlank(message = "Job Name cannot be Blank")
-    String jobName;
+    @NotNull(message = "Department Id cannot be Blank")
+    Long depId;
+    @NotNull(message = "Job Id cannot be Blank")
+    Long jobId;
     @NotNull(message = "Salary cannot be Null")
     Long salary;
 }
