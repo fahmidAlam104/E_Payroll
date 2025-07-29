@@ -1,5 +1,6 @@
 package com.epam;
 
+import com.epam.Models.Employee;
 import com.epam.Utility.EntityNotFoundException;
 import com.epam.Utility.ErrorResponse;
 import com.epam.Utility.InvalidDataException;

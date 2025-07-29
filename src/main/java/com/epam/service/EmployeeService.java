@@ -9,6 +9,9 @@ import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -48,6 +51,12 @@ public class EmployeeService {
     }
     public EmployeeDTO getById(Long id){
         logger.info("Starting EmployeeService getById...");
+
+
+        Sort sort= Sort.by(Sort.Order.asc("name"),Sort.Order.desc("age"));
+        Pageable pg= PageRequest.of(2,2);
+
+
        return entityToDTO.toEmployeeDTO(employeeDbInstance.findById(id).
                     orElseThrow(()->new EntityNotFoundException
                             ("No such employee with the given id:-"+id)));

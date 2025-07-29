@@ -15,7 +15,7 @@
 //import java.util.ArrayList;
 //import java.util.Iterator;
 //import java.util.List;
-//import java.util.Optional;
+//import java.util.OptionalPract;
 //
 //@Service
 //public class ServiceCrudOperations {
@@ -116,7 +116,7 @@
 //    }
 //    public  <T> T getById(String choice,Object id){
 //        if("Employee".equals(choice)){
-//            Optional<Employee> tmp= employeeDbInstance.findById((Long)id);
+//            OptionalPract<Employee> tmp= employeeDbInstance.findById((Long)id);
 //            if(tmp.isPresent()){
 //                return (T)entityToDTO.toEmployeeDTO(tmp.get());
 //            }
@@ -124,7 +124,7 @@
 //             throw new IllegalArgumentException("No such employee with the given id");
 //            }
 //        }else if ("Department".equals(choice)){
-//            Optional<Department> tmp= departmentDbInstance.findById((String) id);
+//            OptionalPract<Department> tmp= departmentDbInstance.findById((String) id);
 //            if(tmp.isPresent()){
 //                return (T)entityToDTO.toDepartmentDTO(tmp.get());
 //            }
@@ -133,7 +133,7 @@
 //            }
 //        }
 //        else if("Job Title".equals(choice)){
-//            Optional<JobTitle> tmp= jobTitleDbInstance.findById((String)id);
+//            OptionalPract<JobTitle> tmp= jobTitleDbInstance.findById((String)id);
 //            if(tmp.isPresent()){
 //                return (T)entityToDTO.toJobTitleDTO(tmp.get());
 //            }

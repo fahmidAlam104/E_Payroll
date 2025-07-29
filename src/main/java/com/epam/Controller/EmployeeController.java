@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,19 +28,22 @@ public class EmployeeController {
         return serviceCrudOperations.getById(id);
     }
     @PostMapping
-    public void add(@Valid @RequestBody EmployeeDTO employee){
+    public HttpStatusCode add(@Valid @RequestBody EmployeeDTO employee){
         logger.info("Post /api/employees/{} called for", employee);
         serviceCrudOperations.add(employee);
+        return HttpStatus.CREATED;
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public HttpStatusCode delete(@PathVariable Long id){
         logger.info("Delete /api/employees/{} called for", id);
         serviceCrudOperations.removeById(id);
+        return HttpStatus.NO_CONTENT;
     }
     @PutMapping("/{id}")
-    public void updateById(@Valid @RequestBody EmployeeDTO employee,@PathVariable Long id){
+    public HttpStatus updateById(@Valid @RequestBody EmployeeDTO employee,@PathVariable Long id){
         logger.info("Put /api/employees/{} called for", id);
         serviceCrudOperations.editById(employee,id);
+        return HttpStatus.OK;
     }
     @GetMapping("/payroll")
     public List<EmployeeDTO> generatePayroll(){
