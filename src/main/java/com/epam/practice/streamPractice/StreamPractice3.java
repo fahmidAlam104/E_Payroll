@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamPractice3 {
 
@@ -259,6 +260,42 @@ public class StreamPractice3 {
 //Find the next greatest element for each element in an array.
 //Example Input: {15, 10, 16, 20, 8, 9, 7, 50}.
 //Example Output: {15=16, 10=16, 20=50, 8=9, 50=Integer.MAX_VALUE}.
+
+   ArrayDeque<Integer> q=new ArrayDeque<>();
+   q.push(Integer.MAX_VALUE);
+   List<Integer> list24=List.of(15, 10, 16, 20, 8, 9, 7, 50);
+   int sz24=list24.size();
+   Map<Integer,Integer> nextGreatestElement = IntStream.range(0,sz24).mapToObj(x->Integer.valueOf(x))
+           .collect(Collectors.toMap(x->sz24-x-1,y->{
+       Integer curr=list24.get((int)sz24-y-1);
+       while(q.size()>1 && q.peekFirst()<=curr){
+           q.removeFirst();
+       }
+       Integer toReturn=q.peekFirst();
+       q.addFirst(curr);
+       return toReturn;
+   }));
+        System.out.println("Next greatest element "+nextGreatestElement);
+
+
+   // Merge two sorted arrays into one sorted array.
+
+        int[] arr251={1,2,3,4,5};
+        int[] arr252={6,7,8,9,10};
+
+    List<Integer> list25= Stream.concat(Arrays.stream(arr251).boxed(),Arrays.stream(arr252).boxed()).sorted().toList();
+        System.out.println("merge two arrays"+list25);
+
+
+// Find and print the most frequent element in a list of integers.
+        List<Integer> list26=List.of(1,3,2,3,5,2,3);
+      int mostFreq=list26.stream().collect(Collectors.groupingBy(x->x,Collectors.counting()))
+              .entrySet().stream().max((x,y)->Long.compare(x.getValue(),y.getValue()))
+              .orElse(Map.entry(-1,-1L)).getKey();
+        System.out.println("most freq "+mostFreq);
+
+
+
 
 
 

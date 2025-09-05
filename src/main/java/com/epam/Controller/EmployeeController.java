@@ -11,8 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/employees")
@@ -29,6 +28,9 @@ public class EmployeeController {
     }
     @PostMapping
     public HttpStatusCode add(@Valid @RequestBody EmployeeDTO employee){
+        //Map<Integer,Integer> cnt2=new HashMap<Integer,Integer>();
+       // List<Integer> l=new ArrayList<>();
+       // l.reversed();
         logger.info("Post /api/employees/{} called for", employee);
         serviceCrudOperations.add(employee);
         return HttpStatus.CREATED;

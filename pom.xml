@@ -80,6 +80,15 @@
 			<version>3.4.2</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api  for using custom dispatcher servlet-->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

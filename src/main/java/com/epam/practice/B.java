@@ -11,9 +11,10 @@ public class B extends A implements c,Comparable<B> {
 //        return new int[10];
 //    }
 
+
+
     @Override
     public Integer[] ff2(){
-
 //         Collections.unmodifiableList();
        // List.of()
         return new Integer[10];

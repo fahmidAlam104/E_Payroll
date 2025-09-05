@@ -1,16 +1,64 @@
 package com.epam;
-import com.epam.practice.streamPractice.StreamPractice1;
+import com.epam.newThings.readFromApplicationProp.ApplicationProperties;
+import com.epam.practice.A;
+import com.epam.practice.B;
+import com.epam.practice.Overloading;
+import com.epam.practice.OverloadingChild;
 import com.epam.practice.streamPractice.StreamPractice3;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.sql.ast.tree.expression.Over;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 //@SpringBootApplication
+//@EnableConfigurationProperties({ApplicationProperties.class})
 public class Main {
+
+    public class Pair implements Comparable{
+        public int x; int y;
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair pair = (Pair) o;
+            return x == pair.x && y == pair.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+
+        @Override
+        public String toString() {
+            return "Pair{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
+
+        public Pair(int x, int y){
+            this.x=x;
+            this.y=y;
+        }
+        @Override
+        public int compareTo(Object o) {
+            Pair other=(Pair) o;
+            if(x<other.x) return -1;
+            else if(x==other.x) return Integer.compare(y,other.y);
+            else return 1;
+        }
+    }
+
 
     @Value("${spring.application.name:Defalt app}")
     static String notWorkingApplicationName;                 // static value pr kaam nahi karta
@@ -22,20 +70,64 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        new Main().f();
+
+        Overloading a=new Overloading();
+        a.callFunc("a");
+
+        OverloadingChild b=new OverloadingChild();
+        b.callFunc("b");
+
+        Overloading aa=new OverloadingChild();
+        aa  .callFunc("ab");
+
+
+        //new Main().f();
 //        System.out.println(" notWorkingappname "+notWorkingApplicationName);
 //        System.out.println(" appname "+applicationName);
-//         ConfigurableApplicationContext ap= SpringApplication.run(Main.class, args);
+//
+//        List<String> tmp=List.of("aa bb cc","bb cd de");
+//        System.out.println(tmp.stream().flatMap(x-> Arrays.stream(x.split(" ")).toList().stream()).
+//                collect(Collectors.groupingBy(x->x,Collectors.counting())));
+//
+//
+////         ConfigurableApplicationContext ap= SpringApplication.run(Main.class, args);
+//
+//
 //        System.out.println(" appname "+applicationName);    // gets initialized after spring application context is setup
-//        for( String s: ap.getBeanDefinitionNames()){
-//            System.out.println(" Bean -> "+s);
-//        }
-
-
-
-        System.out.println("Thread :" + Thread.currentThread().getName());
+////        for( String s: ap.getBeanDefinitionNames()){
+////            System.out.println(" Bean -> "+s);
+////        }
     }
+    @Bean
+    public Scanner getScanner(){
+        return new Scanner(System.in);
+    }
+    @Bean
+    public ObjectMapper getObjectMapper(){
+        System.out.println("Beans being created ");
+        ObjectMapper mapper =new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ //////////////////////////////////   Practice shiet /////////////////////////////////////
+
    void f() throws IOException {
+       System.out.println("Thread :" + Thread.currentThread().getName());
 //       threadbt tt=new threadbt();
 //       tt.ff();
 //
@@ -88,14 +180,4 @@ public class Main {
        StreamPractice3 streamPractice3=new StreamPractice3();
        streamPractice3.f();
    }
-    @Bean
-    public Scanner getScanner(){
-        return new Scanner(System.in);
-    }
-    @Bean
-    public ObjectMapper getObjectMapper(){
-        ObjectMapper mapper =new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper;
-    }
 }

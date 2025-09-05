@@ -17,10 +17,10 @@ public class Employee implements Serializable {
     String name;
     @Column(unique = true)
     String email;
-    @ManyToOne(targetEntity = Department.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Department.class)
     @JoinColumn(name = "dep_id",referencedColumnName = "dep_id")
     Department department;
-    @ManyToOne(targetEntity = JobTitle.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = JobTitle.class)
     @JoinColumn(name = "job_id",referencedColumnName = "job_id")
     JobTitle jobTitle;
     @Id

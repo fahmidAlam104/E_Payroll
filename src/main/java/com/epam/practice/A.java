@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class A {
+    public A(){
+    }
     public A A(){
         return new A(1);
     }
