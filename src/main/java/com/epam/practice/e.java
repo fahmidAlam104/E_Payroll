@@ -11,4 +11,8 @@ public abstract class e {
     }
     public interface i{
     }
+
+    static void m(){}
+
+    //abstract synchronized void f(){}
 }

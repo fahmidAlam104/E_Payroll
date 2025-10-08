@@ -1,4 +1,5 @@
 package com.epam;
+import com.epam.Models.Employee;
 import com.epam.newThings.readFromApplicationProp.ApplicationProperties;
 import com.epam.practice.A;
 import com.epam.practice.B;
@@ -71,14 +72,14 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Overloading a=new Overloading();
-        a.callFunc("a");
-
-        OverloadingChild b=new OverloadingChild();
-        b.callFunc("b");
-
-        Overloading aa=new OverloadingChild();
-        aa  .callFunc("ab");
+//        Overloading a=new Overloading();
+//        a.callFunc("a");
+//
+//        OverloadingChild b=new OverloadingChild();
+//        b.callFunc("b");
+//
+//        Overloading aa=new OverloadingChild();
+//        aa  .callFunc("ab");
 
 
         //new Main().f();

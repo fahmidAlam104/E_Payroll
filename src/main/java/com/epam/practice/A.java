@@ -5,7 +5,15 @@ import java.util.List;
 
 public class A {
     public A(){
+
     }
+
+    private void privateMethod(){
+
+        System.out.println("Private A Mehtod");
+    }
+
+
     public A A(){
         return new A(1);
     }
@@ -61,4 +69,27 @@ public class A {
 
 
     }
+
+
+    // public static native void m();
+
+    public void process(String s){
+        System.out.println("String "+s);
+    }
+    public void process(Integer i){
+        System.out.println("Integer "+i);
+    }
+    public void process(int i){
+        System.out.println("int "+i);
+    }
+    public void process(double i){
+        System.out.println("double "+i);
+    }
+    public <T> void process(T t){
+        System.out.println("Type "+t);
+    }
+//    public <T> int process(T t){
+//        System.out.println("Type "+t);
+//    }
+
 }

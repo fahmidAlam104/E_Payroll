@@ -296,9 +296,19 @@ public class StreamPractice3 {
 
 
 
-
-
-
+        String sss="tree";
+        Character []ch={'a','b'};
+        Stream<Character> x=Arrays.stream(ch);
+        Stream<Character> ansf=sss.chars().mapToObj(xx->(char)xx);
+        String ansff= s.chars().mapToObj(x1->(char)x1)
+                .collect(Collectors.groupingBy(x1->x1,Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted((x1,y1)->Long.compare(y1.getValue(),x1.getValue()))
+                .flatMap(x1->{
+                    Integer r= x1.getValue().intValue();
+                   return IntStream.range(0,r).mapToObj(x2->(char)x1.getKey());
+                }).map(String::valueOf).collect(Collectors.joining(""));
 
     }
 }

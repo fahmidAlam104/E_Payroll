@@ -12,6 +12,11 @@ public class B extends A implements c,Comparable<B> {
 //    }
 
 
+  //  @Override              Not visible hence no override
+    private void privateMethod(){
+        System.out.println("Private B Mehtod");
+    }
+
 
     @Override
     public Integer[] ff2(){
