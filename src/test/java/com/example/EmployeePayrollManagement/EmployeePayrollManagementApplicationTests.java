@@ -5,7 +5,9 @@ import com.epam.service.EmployeeService;
 import com.epam.service.EntityToDTO;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -18,6 +20,7 @@ import com.epam.Utility.EntityNotFoundException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -48,6 +51,27 @@ class EmployeePayrollManagementApplicationTests {
 	Department itDept;
 	Department hrDept;
 	JobTitle developer;
+
+	@Test
+	void dummy(){
+//		doNothing();
+//		doReturn();
+
+		when(employee.getId()).thenAnswer(new Answer<Object>() {
+
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				Method method=invocation.getMethod();
+				Object ob=invocation.callRealMethod();
+				Object[] argumentsArray=invocation.getArguments();
+				String param1=invocation.getArgument(0);
+				Object mock=invocation.getMock();
+				return null;
+			}
+		});
+	}
+
+
 
 	@BeforeEach
 	void setUp() {

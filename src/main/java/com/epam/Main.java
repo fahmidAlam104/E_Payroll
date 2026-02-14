@@ -1,24 +1,12 @@
 package com.epam;
-import com.epam.Models.Employee;
-import com.epam.newThings.readFromApplicationProp.ApplicationProperties;
-import com.epam.practice.A;
-import com.epam.practice.B;
-import com.epam.practice.Overloading;
-import com.epam.practice.OverloadingChild;
-import com.epam.practice.streamPractice.StreamPractice3;
+import com.praticeStuff.practice.streamPractice.StreamPractice3;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.sql.ast.tree.expression.Over;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 //@SpringBootApplication
 //@EnableConfigurationProperties({ApplicationProperties.class})
